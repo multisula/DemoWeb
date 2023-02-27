@@ -11,4 +11,7 @@
         <servlet-name>LoginProcess</servlet-name>
         <url-pattern>/LoginProcess</url-pattern>
     </servlet-mapping>
-</web-app>
+    <welcome-file-list>
+        <welcome-file>login.html</welcome-file>
+    </welcome-file-list>
+</web-app
