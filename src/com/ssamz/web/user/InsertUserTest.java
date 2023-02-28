@@ -8,7 +8,13 @@ public class InsertUserTest {
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
 
-        dao.insertUser("ssamz3", "ssamz123", "쌤즈", "ADMIN");
+        UserVO vo = new UserVO();
+        vo.setId("ssamz4");
+        vo.setPassword("ssamz123");
+        vo.setName("쌤즈");
+        vo.setRole("USER");
+
+        dao.insertUser(vo);
 
         dao.getUserList();
     }

@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     private Connection conn = null;
@@ -17,26 +19,30 @@ public class UserDAO {
     private String USER_UPDATE = "UPDATE demo_users SET name=?, role=? WHERE id = ?";
     private String USER_DELETE = "DELETE DEMO_USERS WHERE id = ?";
 
-    public void getUserList(){
+    public List<UserVO> getUserList(){
+        List<UserVO> userList = new ArrayList<>();
         try {
             conn = JDBCUtil.getConnection();
             pstmt = conn.prepareStatement(USER_LIST);
             rs = pstmt.executeQuery();
             System.out.println("[ USER 목록 ]");
             while(rs.next()){
-                System.out.print(rs.getString("id") + " : ");
-                System.out.print(rs.getString("password") + " : ");
-                System.out.print(rs.getString("name") + " : ");
-                System.out.println(rs.getString("role"));
+                UserVO vo = new UserVO();
+                vo.setId(rs.getString("id"));
+                vo.setPassword(rs.getString("password"));
+                vo.setName(rs.getString("name"));
+                vo.setRole(rs.getString("role"));
+                userList.add(vo);
             }
         } catch(SQLException e) {
             e.printStackTrace();
         } finally {
             JDBCUtil.close(rs, pstmt, conn);
         }
+        return userList;
     }
 
-    public void insertUser(String id, String password, String name, String role){
+    public void insertUser(UserVO vo){
         try {
             // JDBC 2. Connect
             conn = JDBCUtil.getConnection();
@@ -45,10 +51,10 @@ public class UserDAO {
 
             // JDBC 4. Send SQL
             // Set ? value
-            pstmt.setString(1, "ssamz3");
-            pstmt.setString(2, "ssamz123");
-            pstmt.setString(3, "쌤즈");
-            pstmt.setString(4, "ADMIN");
+            pstmt.setString(1, vo.getId());
+            pstmt.setString(2, vo.getPassword());
+            pstmt.setString(3, vo.getName());
+            pstmt.setString(4, vo.getRole());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -56,7 +62,7 @@ public class UserDAO {
             JDBCUtil.close(pstmt, conn);
         }
     }
-    public void updateUser(String name, String role, String id){
+    public void updateUser(UserVO vo){
         try {
             // JDBC 2. Connect
             conn = JDBCUtil.getConnection();
@@ -64,9 +70,9 @@ public class UserDAO {
 
             // JDBC 4. Send SQL
             // Set ? value
-            pstmt.setString(1, name);
-            pstmt.setString(2, role);
-            pstmt.setString(3, id);
+            pstmt.setString(1, vo.getName());
+            pstmt.setString(2, vo.getRole());
+            pstmt.setString(3, vo.getId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
