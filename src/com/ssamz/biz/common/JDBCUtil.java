@@ -4,6 +4,7 @@ import oracle.jdbc.pool.OracleDataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 
 public class JDBCUtil {
     public static Connection getConnection() {
@@ -25,6 +26,25 @@ public class JDBCUtil {
     }
 
     public static void close(PreparedStatement pstmt, Connection conn){
+        try{
+            pstmt.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void close(ResultSet rs, PreparedStatement pstmt, Connection conn){
+        try{
+            rs.close();
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        }
         try{
             pstmt.close();
         } catch (SQLException e){

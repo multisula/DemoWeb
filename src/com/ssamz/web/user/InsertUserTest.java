@@ -1,23 +1,16 @@
 package com.ssamz.web.user;
 
 import java.sql.*;
-import oracle.jdbc.*;
-import oracle.jdbc.pool.OracleDataSource;
 
-public class InsertUserTest2 {
+import com.ssamz.biz.common.JDBCUtil;
+
+public class InsertUserTest {
     public static void main(String[] args) {
-        OracleDataSource ods = null;
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
-            // JDBC 1. Loading Driver Object
-            ods = new OracleDataSource();
-            ods.setURL("jdbc:oracle:thin:@192.168.0.7:15121:orcl");
-            ods.setUser("c##demo_user1");
-            ods.setPassword("1234");
-
             // JDBC 2. Connect
-            conn = ods.getConnection();
+            conn = JDBCUtil.getConnection();
 
             // JDBC 3. Create Statement
             String sql = "INSERT INTO demo_users VALUES(?, ?, ?, ?)";
@@ -25,7 +18,7 @@ public class InsertUserTest2 {
 
             // JDBC 4. Send SQL
             // Set ? value
-            pstmt.setString(1, "ssamz2");
+            pstmt.setString(1, "ssamz3");
             pstmt.setString(2, "ssamz123");
             pstmt.setString(3, "쌤즈");
             pstmt.setString(4, "ADMIN");
@@ -37,16 +30,7 @@ public class InsertUserTest2 {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            try {
-                pstmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            JDBCUtil.close(pstmt, conn);
         }
     }
 }
