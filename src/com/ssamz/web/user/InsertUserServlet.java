@@ -26,16 +26,15 @@ public class InsertUserServlet extends HttpServlet {
     String[] languages = request.getParameterValues("languages");
     String age = request.getParameter("age");
 
-    System.out.println("아이디: " + id);
-    System.out.println("비밀번호: " + password);
-    System.out.println("이름: " + name);
-    System.out.println("권한: " + role);
-    System.out.println("자기 소개: " + selfInfo);
-    System.out.print("언어 경험: ");
-    for(String language: languages){
-      System.out.print(language + " ");
-    }
-    System.out.println();
-    System.out.println("나이: " + age);
+    UserDAO dao = new UserDAO();
+    UserVO vo = new UserVO();
+    vo.setId(id);
+    vo.setPassword(password);
+    vo.setName(name);
+    vo.setRole(role);
+
+    dao.insertUser(vo);
+
+    response.sendRedirect("login.html");
   }
 }
