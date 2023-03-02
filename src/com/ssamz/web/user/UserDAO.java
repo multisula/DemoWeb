@@ -18,7 +18,7 @@ public class UserDAO {
     private String USER_INSERT = "INSERT INTO demo_users VALUES(?, ?, ?, ?)";
     private String USER_UPDATE = "UPDATE demo_users SET name=?, role=? WHERE id = ?";
     private String USER_DELETE = "DELETE DEMO_USERS WHERE id = ?";
-    private String USER_GET = "SELECT * FROM USERS WHERE id = ?";
+    private String USER_GET = "SELECT * FROM demo_users WHERE id = ?";
 
     public List<UserVO> getUserList(){
         List<UserVO> userList = new ArrayList<>();

@@ -8,6 +8,7 @@ import java.io.IOException;
 @WebServlet(name = "insertUser", value = "/insertUser.do")
 public class InsertUserServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
+  private String encoding;
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -16,7 +17,10 @@ public class InsertUserServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    request.setCharacterEncoding("UTF-8");
+
+    ServletContext context = getServletContext();
+    encoding = context.getInitParameter("boardEncoding");
+    request.setCharacterEncoding(encoding);
 
     String id = request.getParameter("id");
     String password = request.getParameter("password");
