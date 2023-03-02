@@ -14,11 +14,11 @@ public class BoardDAO {
   private PreparedStatement pstmt;
   private ResultSet rs;
 
-  private static String BOARD_INSERT = "INSERT INTO BOARD(seq, title, writer, content) VALUES(SEQ_BOARD_SEQ.NEXTVAL, ?, ?, ?)";
-  private static String BOARD_UPDATE = "UPDATE BOARD SET title=?, content=? WHERE seq=?";
-  private static String BOARD_DELETE = "DELETE BOARD WHERE seq=?";
-  private static String BOARD_GET = "SELECT * FROM BOARD WHERE SEQ=?";
-  private static String BOARD_LIST = "SELECT * FROM BOARD ORDER BY seq DESC";
+  private static String BOARD_INSERT = "INSERT INTO DEMO_BOARD(seq, title, writer, content) VALUES(SEQ_BOARD_SEQ.NEXTVAL, ?, ?, ?)";
+  private static String BOARD_UPDATE = "UPDATE DEMO_BOARD SET title=?, content=? WHERE seq=?";
+  private static String BOARD_DELETE = "DELETE DEMO_BOARD WHERE seq=?";
+  private static String BOARD_GET = "SELECT * FROM DEMO_BOARD WHERE SEQ=?";
+  private static String BOARD_LIST = "SELECT * FROM DEMO_BOARD ORDER BY seq DESC";
 
   public void insertBoard(BoardVO vo) {
     try {
@@ -88,21 +88,21 @@ public class BoardDAO {
     return result;
   }
 
-  public List<BoardVO> getBoardList(BoardVO vo) {
+  public List<BoardVO> getBoardList() {
     List<BoardVO> boardList = new ArrayList<>();
     try{
       conn = JDBCUtil.getConnection();
       pstmt = conn.prepareStatement(BOARD_LIST);
       rs = pstmt.executeQuery();
       while(rs.next()){
-        BoardVO v = new BoardVO();
-        v.setSeq(rs.getInt("seq"));
-        v.setTitle(rs.getString("title"));
-        v.setWriter(rs.getString("writer"));
-        v.setContent(rs.getString("content"));
-        v.setRegDate(rs.getDate("regdate"));
-        v.setCnt(rs.getInt("cnt"));
-        boardList.add(v);
+        BoardVO vo = new BoardVO();
+        vo.setSeq(rs.getInt("seq"));
+        vo.setTitle(rs.getString("title"));
+        vo.setWriter(rs.getString("writer"));
+        vo.setContent(rs.getString("content"));
+        vo.setRegDate(rs.getDate("regdate"));
+        vo.setCnt(rs.getInt("cnt"));
+        boardList.add(vo);
       }
     } catch(SQLException e){
       e.printStackTrace();
