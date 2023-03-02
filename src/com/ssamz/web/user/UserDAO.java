@@ -18,6 +18,7 @@ public class UserDAO {
     private String USER_INSERT = "INSERT INTO demo_users VALUES(?, ?, ?, ?)";
     private String USER_UPDATE = "UPDATE demo_users SET name=?, role=? WHERE id = ?";
     private String USER_DELETE = "DELETE DEMO_USERS WHERE id = ?";
+    private String USER_GET = "SELECT * FROM USERS WHERE id = ?";
 
     public List<UserVO> getUserList(){
         List<UserVO> userList = new ArrayList<>();
@@ -100,5 +101,28 @@ public class UserDAO {
         } finally {
             JDBCUtil.close(pstmt, conn);
         }
+    }
+
+    public UserVO getUser(UserVO vo){
+        UserVO user = null;
+        try {
+            conn = JDBCUtil.getConnection();
+            pstmt = conn.prepareStatement(USER_GET);
+            pstmt.setString(1, vo.getId());
+            rs = pstmt.executeQuery();
+            while(rs.next()){
+                user = new UserVO();
+                user.setId(rs.getString("id"));
+                user.setPassword(rs.getString("password"));
+                user.setName(rs.getString("name"));
+                user.setRole(rs.getString("role"));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            JDBCUtil.close(rs, pstmt, conn);
+        }
+
+        return user;
     }
 }
