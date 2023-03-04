@@ -71,7 +71,8 @@ public class GetBoardServlet extends HttpServlet {
     out.println("</form>");
     out.println("<hr>");
     out.println("<a href='insertBoard.html'>글등록</a>&nbsp;&nbsp;&nbsp;");
-    out.println("<a href='getBoardList.do'>글목록</a>");
+    out.println("<a href='GetBoardList.do'>글목록</a>&nbsp;&nbsp;&nbsp;");
+    out.println("<a href='DeleteBoard.do?seq=" + vo.getSeq() + "'>글삭제</a>");
     out.println("</center>");
     out.println("</body>");
     out.println("</html>");

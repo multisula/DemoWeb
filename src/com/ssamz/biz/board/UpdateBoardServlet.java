@@ -32,6 +32,6 @@ public class UpdateBoardServlet extends HttpServlet {
         BoardDAO bdao = new BoardDAO();
         bdao.updateBoard(vo);
 
-        response.sendRedirect("/GetBoard.do?seq=" + vo.getSeq());
+        response.sendRedirect("/GetBoardList.do");
     }
 }

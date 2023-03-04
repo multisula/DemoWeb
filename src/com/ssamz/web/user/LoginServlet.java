@@ -1,9 +1,10 @@
 package com.ssamz.web.user;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebInitParam;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -40,7 +41,7 @@ public class LoginServlet extends HttpServlet {
         if(user != null) {
             if (user.getPassword().equals(password)) {
                 out.println(user.getName() + "님 로그인 환영!<br>");
-                out.println("<a href='/getBoardList.do'>글 목록 이동</a>");
+                out.println("<a href='/GetBoardList.do'>글 목록 이동</a>");
             } else {
                 out.println("비밀번호 오류입니다.<br>");
                 out.println("<a href='/'>다시 로그인</a>");
