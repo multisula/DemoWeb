@@ -39,7 +39,8 @@ public class GetBoardServlet extends HttpServlet {
     out.println("<h1>글 상세</h1>");
     out.println("<h3><a href='logout.do'>Log-out</a></h3>");
     out.println("<hr>");
-    out.println("<form action='updateBoard.do' method='post'>");
+    out.println("<form action='UpdateBoard.do' method='post'>");
+    out.println("<input name='seq' type='hidden' value='" + vo.getSeq() + "'/>");
     out.println("<table border='1' cellpadding='0' cellspacing='0'>");
     out.println("<tr>");
     out.println("<td bgcolor='orange' width='70'>제목</td>");
