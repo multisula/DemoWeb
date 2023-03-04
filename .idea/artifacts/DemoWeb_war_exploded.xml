@@ -40,6 +40,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/../../tomcat9/lib/tomcat-i18n-zh-CN.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/../../tomcat9/lib/catalina-storeconfig.jar" />
           <element id="library" level="project" name="ojdbc11" />
+          <element id="file-copy" path="$APPLICATION_HOME_DIR$/plugins/lombok/lib/lombok.jar" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="DemoWeb/web/Web" />

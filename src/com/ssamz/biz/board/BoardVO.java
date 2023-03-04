@@ -1,4 +1,4 @@
-package com.ssamz.web.user;
+package com.ssamz.biz.board;
 
 import java.util.Date;
 

@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "insertUser", value = "/insertUser.do")
+@WebServlet(name = "InsertUser", value = "/InsertUser.do")
 public class InsertUserServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   private String encoding;

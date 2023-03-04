@@ -1,11 +1,12 @@
-package com.ssamz.web.user;
+package com.ssamz.biz.board;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "GetBoardList", value = "/GetBoardList.do")
@@ -44,7 +45,7 @@ public class GetBoardListServlet extends HttpServlet {
     for (BoardVO board : boardList) {
       out.println("<tr>");
       out.println("<td>" + board.getSeq() + "</td>");
-      out.println("<td align='left'><a href='#'>" + board.getTitle() + "</a></td>");
+      out.println("<td align='left'><a href='/GetBoard.do?seq=" + board.getSeq() + "'>" + board.getTitle() + "</a></td>");
       out.println("<td>" + board.getWriter() + "</td>");
       out.println("<td>" + board.getRegDate() + "</td>");
       out.println("<td>" + board.getCnt() + "</td>");

@@ -1,4 +1,4 @@
-package com.ssamz.web.user;
+package com.ssamz.biz.board;
 
 import com.ssamz.biz.common.JDBCUtil;
 
@@ -17,7 +17,7 @@ public class BoardDAO {
   private static String BOARD_INSERT = "INSERT INTO DEMO_BOARD(seq, title, writer, content) VALUES(SEQ_BOARD_SEQ.NEXTVAL, ?, ?, ?)";
   private static String BOARD_UPDATE = "UPDATE DEMO_BOARD SET title=?, content=? WHERE seq=?";
   private static String BOARD_DELETE = "DELETE DEMO_BOARD WHERE seq=?";
-  private static String BOARD_GET = "SELECT * FROM DEMO_BOARD WHERE SEQ=?";
+  private static String BOARD_GET = "SELECT * FROM DEMO_BOARD WHERE seq = ?";
   private static String BOARD_LIST = "SELECT * FROM DEMO_BOARD ORDER BY seq DESC";
 
   public void insertBoard(BoardVO vo) {
@@ -64,7 +64,7 @@ public class BoardDAO {
   }
 
   public BoardVO getBoard(BoardVO vo) {
-    BoardVO result = null;
+    BoardVO result = new BoardVO();
     try {
       conn = JDBCUtil.getConnection();
       pstmt = conn.prepareStatement(BOARD_GET);
