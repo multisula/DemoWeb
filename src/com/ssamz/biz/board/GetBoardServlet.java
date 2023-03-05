@@ -34,6 +34,7 @@ public class GetBoardServlet extends HttpServlet {
 
     HttpSession session = req.getSession();
     String userId = (String) session.getAttribute("userId");
+    String userRole = (String) session.getAttribute("userRole");
     if(userId == null){
       resp.sendRedirect("/");
     }
@@ -93,7 +94,9 @@ public class GetBoardServlet extends HttpServlet {
     out.println("<hr>");
     out.println("<a href='insertBoard.html'>글등록</a>&nbsp;&nbsp;&nbsp;");
     out.println("<a href='GetBoardList.do'>글목록</a>&nbsp;&nbsp;&nbsp;");
-    out.println("<a href='DeleteBoard.do?seq=" + vo.getSeq() + "'>글삭제</a>");
+    if(userRole.equals("ADMIN")){
+      out.println("<a href='DeleteBoard.do?seq=" + vo.getSeq() + "'>글삭제</a>");
+    }
     out.println("</center>");
     out.println("</body>");
     out.println("</html>");
