@@ -2,6 +2,7 @@ package com.ssamz.biz.board;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,21 @@ public class GetBoardListServlet extends HttpServlet {
 
   @Override
   protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    Cookie[] cookieList = req.getCookies();
+    String userId = null;
+    if(cookieList == null) {
+      resp.sendRedirect("/login.html");
+    } else {
+      for (Cookie cookie: cookieList){
+        if (cookie.getName().equals("userId")) {
+          userId = cookie.getValue();
+        }
+      }
+
+      if(userId == null){
+        resp.sendRedirect("/login.html");
+      }
+    }
     BoardVO vo = new BoardVO();
 
     BoardDAO boardDAO = new BoardDAO();
@@ -30,7 +46,7 @@ public class GetBoardListServlet extends HttpServlet {
     out.println("<body>");
     out.println("<center>");
     out.println("<h1>게시글 목록</h1>");
-    out.println("<h3>테스터님 로그인 환영합니다......");
+    out.println("<h3>" + userId + "님 로그인 환영합니다......");
     out.println("<a href='logout.do'>Log-out</a></h3>");
 
     out.println("<table border='1' cellpadding='0' width='700'>");

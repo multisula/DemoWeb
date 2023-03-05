@@ -3,6 +3,7 @@ package com.ssamz.biz.board;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,18 @@ public class GetBoardServlet extends HttpServlet {
 
   @Override
   protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    Cookie[] cookieList = req.getCookies();
+    String userId = null;
+    if(cookieList == null){
+      resp.sendRedirect("/login.html");
+    } else {
+      for(Cookie cookie : cookieList){
+        userId = cookie.getName();
+      }
+      if(userId == null) {
+        resp.sendRedirect("/login.html");
+      }
+    }
     ServletContext context = getServletContext();
     this.encoding = context.getInitParameter("boardEncoding");
     req.setCharacterEncoding(encoding);
