@@ -9,17 +9,21 @@ public class BoardVO {
   private String content;
   private Date regDate;
   private int cnt;
+  private String searchCondition;
+  private String searchKeyword;
 
   @Override
   public String toString() {
     return "BoardVO{" +
-        "seq=" + seq +
-        ", title='" + title + '\'' +
-        ", writer='" + writer + '\'' +
-        ", content='" + content + '\'' +
-        ", regDate=" + regDate +
-        ", cnt=" + cnt +
-        '}';
+            "seq=" + seq +
+            ", title='" + title + '\'' +
+            ", writer='" + writer + '\'' +
+            ", content='" + content + '\'' +
+            ", regDate=" + regDate +
+            ", cnt=" + cnt +
+            ", searchCondition='" + searchCondition + '\'' +
+            ", searchKeyword='" + searchKeyword + '\'' +
+            '}';
   }
 
   public int getSeq() {
@@ -68,5 +72,21 @@ public class BoardVO {
 
   public void setCnt(int cnt) {
     this.cnt = cnt;
+  }
+
+  public String getSearchCondition() {
+    return searchCondition;
+  }
+
+  public void setSearchCondition(String searchCondition) {
+    this.searchCondition = searchCondition;
+  }
+
+  public String getSearchKeyword() {
+    return searchKeyword;
+  }
+
+  public void setSearchKeyword(String searchKeyword) {
+    this.searchKeyword = searchKeyword;
   }
 }

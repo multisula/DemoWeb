@@ -1,5 +1,6 @@
 package com.ssamz.biz.board;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,9 +14,13 @@ import java.util.List;
 @WebServlet(name = "GetBoardList", value = "/GetBoardList.do")
 public class GetBoardListServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
+  private String encoding = null;
 
   @Override
   protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    ServletContext context = getServletContext();
+    encoding = context.getInitParameter("boardEncoding");
+    req.setCharacterEncoding(encoding);
     /*
     Cookie[] cookieList = req.getCookies();
     String userId = null;
@@ -42,8 +47,22 @@ public class GetBoardListServlet extends HttpServlet {
 
     BoardVO vo = new BoardVO();
 
+    String condition = req.getParameter("searchCondition");
+    String keyword = req.getParameter("searchKeyword");
+    vo.setSearchCondition(condition);
+    vo.setSearchKeyword(keyword);
+
     BoardDAO boardDAO = new BoardDAO();
-    List<BoardVO> boardList = boardDAO.getBoardList();
+    List<BoardVO> boardList = null;
+    if(keyword == null) {
+      condition="TITLE";
+      keyword="";
+      boardList = boardDAO.getBoardList();
+    } else {
+      boardList = boardDAO.getBoardList(vo);
+      session.setAttribute("condition", vo.getSearchCondition());
+      session.setAttribute("keyword", vo.getSearchKeyword());
+    }
 
     resp.setContentType("text/html; charset=UTF-8");
     PrintWriter out = resp.getWriter();
@@ -56,8 +75,37 @@ public class GetBoardListServlet extends HttpServlet {
     out.println("<center>");
     out.println("<h1>게시글 목록</h1>");
     out.println("<h3>" + userId + "님 로그인 환영합니다......");
-    out.println("<a href='logout.do'>Log-out</a></h3>");
+    out.println("<a href='/Logout.do'>Log-out</a></h3>");
 
+    /*out.println("<!-- 검색 시작 -->");
+    out.println("<form action='GetBoardList.do' method='post'");*/
+    out.println("<!-- 검색 시작 -->\n" +
+            "  <form action='GetBoardList.do' method='post'>\n" +
+            "    <table border='1' cellpadding='0' width='700'>\n" +
+            "      <tr>\n" +
+            "        <td align='right'>\n" +
+            "          <select name='searchCondition'>\n");
+    if(condition.equals("TITLE")) {
+      out.println("            <option value='TITLE' selected>제목</option>\n");
+    } else {
+      out.println("            <option value='TITLE'>제목</option>\n");
+    }
+
+    if (condition.equals("CONTENT")){
+      out.println("            <option value='CONTENT' selected>내용</option>\n" );
+    } else {
+      out.println("            <option value='CONTENT'>내용</option>\n" );
+    }
+
+    out.println(
+            "          </select>\n" +
+            "          <input name='searchKeyword' type='text' value='" + keyword + "'/>\n" +
+            "          <input type='submit' value='검색' />\n" +
+            "        </td>\n" +
+            "      </tr>\n" +
+            "    </table>\n" +
+            "  </form>\n" +
+            "  <!-- 검색 종료 -->");
     out.println("<table border='1' cellpadding='0' width='700'>");
     out.println("<tr>");
     out.println("<th bgcolor='orange' width='100'>번호</th>");

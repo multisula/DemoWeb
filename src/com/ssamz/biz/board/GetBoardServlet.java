@@ -34,10 +34,11 @@ public class GetBoardServlet extends HttpServlet {
 
     HttpSession session = req.getSession();
     String userId = (String) session.getAttribute("userId");
-    String userRole = (String) session.getAttribute("userRole");
     if(userId == null){
       resp.sendRedirect("/");
     }
+    String userRole = (String) session.getAttribute("userRole");
+
     ServletContext context = getServletContext();
     this.encoding = context.getInitParameter("boardEncoding");
     req.setCharacterEncoding(encoding);
@@ -59,7 +60,7 @@ public class GetBoardServlet extends HttpServlet {
     out.println("<body>");
     out.println("<center>");
     out.println("<h1>글 상세</h1>");
-    out.println("<h3><a href='logout.do'>Log-out</a></h3>");
+    out.println("<h3><a href='Logout.do'>Log-out</a></h3>");
     out.println("<hr>");
     out.println("<form action='UpdateBoard.do' method='post'>");
     out.println("<input name='seq' type='hidden' value='" + vo.getSeq() + "'/>");
@@ -94,7 +95,7 @@ public class GetBoardServlet extends HttpServlet {
     out.println("<hr>");
     out.println("<a href='insertBoard.html'>글등록</a>&nbsp;&nbsp;&nbsp;");
     out.println("<a href='GetBoardList.do'>글목록</a>&nbsp;&nbsp;&nbsp;");
-    if(userRole.equals("ADMIN")){
+    if(userRole != null && userRole.equals("ADMIN")){
       out.println("<a href='DeleteBoard.do?seq=" + vo.getSeq() + "'>글삭제</a>");
     }
     out.println("</center>");
