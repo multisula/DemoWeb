@@ -2,10 +2,10 @@ package com.ssamz.web.user;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -41,8 +41,11 @@ public class LoginServlet extends HttpServlet {
 
         if(user != null) {
             if (user.getPassword().equals(password)) {
-                Cookie userId = new Cookie("userId", user.getId());
-                resp.addCookie(userId);
+                //Cookie userId = new Cookie("userId", user.getId());
+                //resp.addCookie(userId);
+
+                HttpSession session = req.getSession();
+                session.setAttribute("userId", user.getId());
 
                 req.getRequestDispatcher("/GetBoardList.do").forward(req, resp);
             } else {

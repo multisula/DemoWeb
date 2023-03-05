@@ -3,13 +3,11 @@ package com.ssamz.biz.board;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "DeleteBoard", value = "/DeleteBoard.do")
 public class DeleteBoardServlet extends HttpServlet {
@@ -18,6 +16,7 @@ public class DeleteBoardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /*
         List<Cookie> cookieList = new ArrayList<>();
         String userId = null;
         if(cookieList.size() == 0){
@@ -30,6 +29,14 @@ public class DeleteBoardServlet extends HttpServlet {
                 response.sendRedirect("/login.html");
             }
         }
+         */
+
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("userId");
+        if(userId == null){
+            response.sendRedirect("/");
+        }
+
         ServletContext context = getServletContext();
         encoding = context.getInitParameter("boardEncoding");
         request.setCharacterEncoding(encoding);
