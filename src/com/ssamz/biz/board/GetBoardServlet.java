@@ -32,10 +32,6 @@ public class GetBoardServlet extends HttpServlet {
      */
 
     HttpSession session = req.getSession();
-    String userId = (String) session.getAttribute("userId");
-    if(userId == null){
-      resp.sendRedirect("/");
-    }
     String userRole = (String) session.getAttribute("userRole");
 
     String seq = req.getParameter("seq");

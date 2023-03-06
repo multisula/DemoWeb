@@ -37,9 +37,6 @@ public class GetBoardListServlet extends HttpServlet {
 
     HttpSession session = req.getSession();
     String userId = (String) session.getAttribute("userId");
-    if(userId == null){
-      resp.sendRedirect("/");
-    }
 
     BoardVO vo = new BoardVO();
 

@@ -5,7 +5,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "DeleteBoard", value = "/DeleteBoard.do")
@@ -29,13 +28,6 @@ public class DeleteBoardServlet extends HttpServlet {
             }
         }
          */
-
-        HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("userId");
-        if(userId == null){
-            response.sendRedirect("/");
-        }
-
         BoardVO vo = new BoardVO();
         vo.setSeq(Integer.parseInt(request.getParameter("seq")));
         BoardDAO bdao = new BoardDAO();
