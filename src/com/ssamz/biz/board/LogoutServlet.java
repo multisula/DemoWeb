@@ -10,6 +10,7 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("===> LogoutServlet 실행");
         HttpSession session = req.getSession();
         session.invalidate();
         resp.sendRedirect("/");
