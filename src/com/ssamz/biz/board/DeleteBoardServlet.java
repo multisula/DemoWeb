@@ -1,6 +1,5 @@
 package com.ssamz.biz.board;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,10 +35,6 @@ public class DeleteBoardServlet extends HttpServlet {
         if(userId == null){
             response.sendRedirect("/");
         }
-
-        ServletContext context = getServletContext();
-        encoding = context.getInitParameter("boardEncoding");
-        request.setCharacterEncoding(encoding);
 
         BoardVO vo = new BoardVO();
         vo.setSeq(Integer.parseInt(request.getParameter("seq")));

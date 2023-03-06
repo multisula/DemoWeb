@@ -1,6 +1,5 @@
 package com.ssamz.biz.board;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,10 +37,6 @@ public class GetBoardServlet extends HttpServlet {
       resp.sendRedirect("/");
     }
     String userRole = (String) session.getAttribute("userRole");
-
-    ServletContext context = getServletContext();
-    this.encoding = context.getInitParameter("boardEncoding");
-    req.setCharacterEncoding(encoding);
 
     String seq = req.getParameter("seq");
 

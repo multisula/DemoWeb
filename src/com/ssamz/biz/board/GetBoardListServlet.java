@@ -1,6 +1,5 @@
 package com.ssamz.biz.board;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,9 +17,6 @@ public class GetBoardListServlet extends HttpServlet {
 
   @Override
   protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    ServletContext context = getServletContext();
-    encoding = context.getInitParameter("boardEncoding");
-    req.setCharacterEncoding(encoding);
     /*
     Cookie[] cookieList = req.getCookies();
     String userId = null;

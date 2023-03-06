@@ -1,11 +1,10 @@
 package com.ssamz.biz.board;
 
-import com.ssamz.biz.board.BoardDAO;
-import com.ssamz.biz.board.BoardVO;
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "InsertBoard", value = "/InsertBoard.do")
@@ -20,10 +19,6 @@ public class InsertBoardServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    ServletContext context = getServletContext();
-    this.encoding = context.getInitParameter("boardEncoding");
-    request.setCharacterEncoding(encoding);
-
     String title = request.getParameter("title");
     String writer = request.getParameter("writer");
     String content = request.getParameter("content");

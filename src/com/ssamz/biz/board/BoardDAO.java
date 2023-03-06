@@ -19,6 +19,7 @@ public class BoardDAO {
   private static String BOARD_UPDATE = "UPDATE DEMO_BOARD SET title=?, content=? WHERE seq=?";
   private static String BOARD_DELETE = "DELETE DEMO_BOARD WHERE seq=?";
   private static String BOARD_GET = "SELECT * FROM DEMO_BOARD WHERE seq = ?";
+  private static String BOARD_GET_UPDATE_CNT = "UPDATE DEMO_BOARD SET CNT = CNT + 1 WHERE seq = ?";
   private static String BOARD_LIST = "SELECT * FROM DEMO_BOARD ORDER BY seq DESC";
   private static String BOARD_LIST_T = "SELECT * FROM DEMO_BOARD WHERE TITLE LIKE '%'||?||'%' ORDER BY SEQ DESC";
   private static String BOARD_LIST_C = "SELECT * FROM DEMO_BOARD WHERE CONTENT LIKE '%'||?||'%' ORDER BY SEQ DESC";
@@ -71,6 +72,11 @@ public class BoardDAO {
     BoardVO result = new BoardVO();
     try {
       conn = JDBCUtil.getConnection();
+
+      pstmt = conn.prepareStatement(BOARD_GET_UPDATE_CNT);
+      pstmt.setString(1, String.valueOf(vo.getSeq()));
+      pstmt.executeUpdate();
+
       pstmt = conn.prepareStatement(BOARD_GET);
       pstmt.setString(1, Integer.toString(vo.getSeq()));
       rs = pstmt.executeQuery();
