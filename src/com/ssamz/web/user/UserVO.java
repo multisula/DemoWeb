@@ -1,6 +1,9 @@
 package com.ssamz.web.user;
 
-public class UserVO {
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
+
+public class UserVO implements HttpSessionBindingListener{
     private String id;
     private String password;
     private String name;
@@ -15,7 +18,15 @@ public class UserVO {
                 ", role='" + role + '\'' +
                 '}';
     }
+    @Override
+    public void valueBound(HttpSessionBindingEvent event) {
+        System.out.println("---> UserVO 객체가 세션에 등록됨");
+    }
 
+    @Override
+    public void valueUnbound(HttpSessionBindingEvent event) {
+        System.out.println("---> UserVO 객체가 세션에서 제됨");
+    }
     public String getId() {
         return id;
     }
@@ -47,4 +58,5 @@ public class UserVO {
     public void setRole(String role) {
         this.role = role;
     }
+
 }

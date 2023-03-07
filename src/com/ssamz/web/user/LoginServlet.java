@@ -45,9 +45,7 @@ public class LoginServlet extends HttpServlet {
                 //resp.addCookie(userId);
 
                 HttpSession session = req.getSession();
-                session.setAttribute("userId", user.getId());
-                session.setAttribute("userName", user.getName());
-                session.setAttribute("userRole", user.getRole());
+                session.setAttribute("user", user);
                 session.setMaxInactiveInterval(1800);
 
                 req.getRequestDispatcher("/GetBoardList.do").forward(req, resp);

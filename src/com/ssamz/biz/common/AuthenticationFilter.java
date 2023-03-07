@@ -22,7 +22,7 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession();
-        if(session.getAttribute("userId") == null){
+        if(session.getAttribute("user") == null){
             resp.sendRedirect("/");
         } else {
             chain.doFilter(request, response);

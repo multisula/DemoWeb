@@ -1,5 +1,7 @@
 package com.ssamz.biz.board;
 
+import com.ssamz.web.user.UserVO;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +38,7 @@ public class GetBoardListServlet extends HttpServlet {
     */
 
     HttpSession session = req.getSession();
-    String userId = (String) session.getAttribute("userId");
+    UserVO user = (UserVO) session.getAttribute("user");
 
     BoardVO vo = new BoardVO();
 
@@ -67,7 +69,7 @@ public class GetBoardListServlet extends HttpServlet {
     out.println("<body>");
     out.println("<center>");
     out.println("<h1>게시글 목록</h1>");
-    out.println("<h3>" + userId + "님 로그인 환영합니다......");
+    out.println("<h3>" + user.getName() + "님 로그인 환영합니다......");
     out.println("<a href='/Logout.do'>Log-out</a></h3>");
 
     /*out.println("<!-- 검색 시작 -->");

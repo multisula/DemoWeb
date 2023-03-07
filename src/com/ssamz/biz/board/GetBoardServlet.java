@@ -1,5 +1,7 @@
 package com.ssamz.biz.board;
 
+import com.ssamz.web.user.UserVO;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +34,7 @@ public class GetBoardServlet extends HttpServlet {
      */
 
     HttpSession session = req.getSession();
-    String userRole = (String) session.getAttribute("userRole");
+    UserVO user = (UserVO) session.getAttribute("user");
 
     String seq = req.getParameter("seq");
 
@@ -86,7 +88,7 @@ public class GetBoardServlet extends HttpServlet {
     out.println("<hr>");
     out.println("<a href='insertBoard.html'>글등록</a>&nbsp;&nbsp;&nbsp;");
     out.println("<a href='GetBoardList.do'>글목록</a>&nbsp;&nbsp;&nbsp;");
-    if(userRole != null && userRole.equals("ADMIN")){
+    if(user.getRole() != null && user.getRole().equals("ADMIN")){
       out.println("<a href='DeleteBoard.do?seq=" + vo.getSeq() + "'>글삭제</a>");
     }
     out.println("</center>");
